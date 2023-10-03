@@ -17,6 +17,7 @@ Color secColor = Colors.black;
 
 class _GotPageState extends State<GotPage> {
   final List<GotModel> _gotList = [];
+
   Future<List<GotModel>> getAPi() async {
     final response =
         await http.get(Uri.parse("https://thronesapi.com/api/v2/Characters"));
@@ -38,6 +39,7 @@ class _GotPageState extends State<GotPage> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: GridView.builder(
+          physics: const BouncingScrollPhysics(),
           itemCount: _gotList.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
@@ -51,7 +53,7 @@ class _GotPageState extends State<GotPage> {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Stack(
-                fit: StackFit.expand,
+                 fit: StackFit.expand,
                 children: [
                   Image.network(
                     _gotList[index].imageUrl.toString(),
@@ -114,6 +116,7 @@ class _GotPageState extends State<GotPage> {
 
   @override
   var response;
+
   void initState() {
     getAPi();
     super.initState();
@@ -127,7 +130,7 @@ class _GotPageState extends State<GotPage> {
         title: Center(
             child: Text("Got 2019",
                 style: GoogleFonts.actor(
-                  fontSize: MediaQuery.of(context).size.width > 800 ? 50 : 25,
+                  fontSize: MediaQuery.of(context).size.width > 800 ? 1 : .35,
                 ))),
         elevation: 0,
       ),
@@ -146,9 +149,7 @@ class _GotPageState extends State<GotPage> {
           ),
         ),
         20.ph,
-        Expanded(
-          child: showGridViewWidget()
-          ),
+        Expanded(child: showGridViewWidget()),
       ]),
     );
   }
@@ -158,6 +159,7 @@ extension PaddingExtension on num {
   SizedBox get ph => SizedBox(
         height: toDouble(),
       );
+
   SizedBox get pw => SizedBox(
         width: toDouble(),
       );
